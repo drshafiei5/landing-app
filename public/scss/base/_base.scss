@@ -1,0 +1,55 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    --bs-body-bg: rgb(251, 248, 243);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+
+    @include on-event {
+        // color: $text-color;
+    }
+}
+
+.w-fit {
+    width: fit-content;
+}
+
+input {
+    @include on-event {
+        box-shadow: none !important;
+    }
+}
+
+.swiper-pagination-bullet {
+    --swiper-pagination-bullet-width: 12px;
+    --swiper-pagination-bullet-height: 12px;
+    --swiper-pagination-bullet-inactive-color: white;
+}
+
+.swiper-pagination-bullet-active {
+    --swiper-pagination-color: white;
+}
+
+
+.dropdown-item.active,
+.dropdown-item:active {
+    --bs-dropdown-link-active-color: black;
+    --bs-dropdown-link-active-bg: #79bcff;
+}

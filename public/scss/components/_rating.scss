@@ -1,0 +1,13 @@
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__star {
+        display: flex;
+    }
+
+    &__txt {
+        @extend .mb-0;
+    }
+}

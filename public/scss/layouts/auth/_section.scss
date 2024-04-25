@@ -1,0 +1,15 @@
+.auth-template {
+    @extend .vh-100;
+
+    &__card {
+        @extend #{".card", ".h-100", ".bg-primary", ".rounded-0"};
+    }
+
+    &__content {
+        @extend #{".row", ".g-0", ".d-flex", ".align-items-center", ".h-100"};
+    }
+
+    &__children-wrapper {
+        @extend #{".card-body", ".h-100", ".d-flex", ".align-items-center", ".justify-content-center"}
+    }
+}

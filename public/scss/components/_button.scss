@@ -1,0 +1,35 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+.button {
+    --bs-btn-padding-y: 0.75rem;
+    --bs-btn-padding-x: 0.75rem;
+    --bs-btn-hover-bg: white;
+    --bs-btn-close-focus-shadow: none;
+
+    @extend .btn;
+    @extend .fw-bold;
+
+    &--primary {
+        @extend .btn-primary;
+        --bs-btn-hover-color: $primary;
+    }
+
+    &--primary-reverse {
+        color: $primary;
+        background-color: white;
+        border: 1px solid $primary;
+
+        @include on-event {
+            color: $primary !important;
+            border: 1px solid $primary;
+            background-color: white !important;
+        }
+    }
+
+    &--close {
+        @extend .btn-close;
+        @extend .text-reset;
+    }
+}

@@ -1,0 +1,57 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+    @if $self {
+        &,
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-within {
+            @content;
+        }
+    } @else {
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-within {
+            @content;
+        }
+    }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Kitty Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+    #{$context} & {
+        @content;
+    }
+}
+
+@mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+    $mq-media-query: "screen and";
+
+    @if $mq-breakpoint == landscape or $mq-breakpoint == portrait {
+        $mq-media-query: "#{$mq-media-query} (orientation: #{$mq-breakpoint})";
+    } @else if $mq-breakpoint == retina {
+        $mq-media-query: "#{$mq-media-query} (-webkit-min-device-pixel-ratio: 2)," +
+            "#{$mq-media-query} (min-resolution: 2dppx)";
+    } @else {
+        // If $mq-breakpoint is a key that exists in
+        // $mq-breakpoints, get and use the value
+        @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+            $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+        }
+        $mq-media-query: "#{$mq-media-query} (min-width: #{$mq-breakpoint})";
+    }
+
+    @media #{$mq-media-query} {
+        @content;
+    }
+}

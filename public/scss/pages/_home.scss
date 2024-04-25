@@ -1,0 +1,160 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+
+.section {
+    // hero section
+    &--hero {
+        padding-bottom: 6rem;
+        background-color: $bg-color;
+
+        &__content {
+            @extend #{".align-items-sm-center", ".row"};
+        }
+
+        &__checkmarks {
+            @extend #{".d-flex", ".align-items-sm-center", ".gap-4"};
+        }
+
+        &__cover {
+            @extend #{".w-100", ".h-100"};
+        }
+
+        &__actions {
+            @extend #{".align-items-center", ".gap-3", ".d-flex", ".mb-4"};
+        }
+    }
+
+    // features-section
+    &--features {
+        @extend .py-5;
+
+        // .section-features__sub-heading
+        &__sub-heading {
+            @extend .fw-bold;
+            font-size: 1rem;
+            color: $primary;
+        }
+
+        // .section-features__heading
+        &__heading {
+            @extend .fw-bold;
+            @extend .mb-5;
+        }
+
+        // .section-features__items
+        &__items {
+            @extend #{".flex-md-row", ".flex-column", ".d-flex"};
+        }
+    }
+
+    .section-feature-item {
+        @extend #{".flex-column", ".d-flex"};
+
+        // .feature-item__img
+        &__img {
+            @extend .mb-2;
+        }
+    }
+
+    // cta section
+    &--cta {
+        color: white;
+
+        .container {
+            @extend .bg-primary;
+            @extend .rounded-2;
+            padding: 1rem 1rem 0 1rem;
+
+            @include mq("md") {
+                padding: 2rem 2rem 0 2rem;
+            }
+        }
+
+        .row {
+            @extend #{".align-items-center", ".flex-column", ".flex-md-row"};
+        }
+
+        &__text-box {
+            width: 100%;
+            margin-bottom: 2rem;
+
+            @include mq("md") {
+                margin-bottom: 0;
+                width: 40%;
+            }
+        }
+
+        &__image-box {
+            width: 100%;
+
+            @include mq("md") {
+                width: 60%;
+            }
+        }
+
+        &__img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    // reviews section
+    &--reviews {
+        padding: 1.5rem;
+
+        @include mq("md") {
+            padding: 5rem 0 5rem 0;
+        }
+
+        overflow-x: hidden;
+
+        .container {
+            overflow: visible;
+        }
+
+        .swiper {
+            overflow: visible;
+        }
+
+        .review {
+            @extend .card;
+            @extend .bg-white;
+            @extend .py-3;
+            cursor: pointer;
+
+            // .review__bio
+            &__bio {
+                @extend .card-header;
+                @extend .bg-transparent;
+                @extend .border-0;
+                @extend #{".align-items-center", ".gap-3", ".d-flex"};
+            }
+
+            // .review__user-name
+            &__user-name {
+                @extend .mb-0;
+                @extend .fw-bold;
+                color: $primary;
+            }
+
+            // .review__user-revenue
+            &__user-revenue {
+                @extend .mb-0;
+            }
+
+            // .review__description
+            &__description {
+                @extend .card-body;
+            }
+
+            // .review__actions
+            &__actions {
+                @extend .card-footer;
+                @extend .bg-transparent;
+                @extend .border-0;
+                @extend .d-grid;
+            }
+        }
+    }
+}

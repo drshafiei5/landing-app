@@ -1,0 +1,26 @@
+/**
+ * Basic typography style for copy text
+ */
+body {
+    color: $text-color;
+}
+
+.heading {
+    font-weight: bold;
+
+    &--main {
+        font-size: calc(1.75rem + 1.5vw);
+    }
+
+    &--second {
+        font-size: calc(1.25rem + 0.75vw);
+    }
+
+    &--third {
+        font-size: 1.15rem;
+
+        @include mq('md') {
+            font-size: calc(0.75rem + 0.25vw);
+        }
+    }
+}

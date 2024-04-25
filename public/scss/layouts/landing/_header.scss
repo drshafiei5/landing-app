@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+
+.header--landing {
+    @extend .my-3;
+
+    // .header__container
+    &__container {
+        @extend .container;
+    }
+
+    // .header__content
+    &__content {
+        @extend #{".d-flex", ".align-items-center", ".justify-content-between"};
+    }
+
+    // .header__logo
+    &__logo {
+        a {
+            @extend .fw-bold;
+            @extend .text-black;
+            font-size: 1.5rem;
+
+            @include mq('md') {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    // .header__navbar
+    &__navbar {
+        --bs-navbar-color: black;
+        --bs-navbar-hover-color: rgb(77, 19, 209);
+        @extend #{".navbar", ".navbar-expand", ".d-none", ".d-lg-flex"};
+    }
+
+    // .header__actions
+    &__actions {
+        @extend #{'.d-flex','.align-items-center'};
+    }
+
+    // .header__auth
+    &__auth {
+        @extend #{".ms-auto", ".d-none", ".d-xl-flex", ".gap-3"};
+    }
+
+    // .header__hamburger-icon
+    &__hamburger-icon {
+        @extend #{".d-inline-block", ".d-xl-none", ".pointer-event"};
+    }
+}
