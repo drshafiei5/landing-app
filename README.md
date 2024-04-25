@@ -1,4 +1,4 @@
-# HTML CSS Capstone project
+# Landing project
 
 > A landing project made of home, registration, login and profile pages.
 
