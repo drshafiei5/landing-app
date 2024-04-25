@@ -14,7 +14,7 @@
 
 ## Live Demo
 
-[Live Demo Link](link)
+[Live Demo Link](https://charming-sherbet-1d2b09.netlify.app/)
 
 
 ## Getting Started
