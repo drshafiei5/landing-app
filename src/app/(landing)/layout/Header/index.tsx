@@ -2,19 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useContext } from "react";
 
 import MainMenu from "./MainMenu";
 import MobileMenu from "./MobileMenu";
-import { AuthActionTypes } from "@/src/types";
-import { AuthContext } from "@/src/contexts/auth-context";
+import { useAuth } from "@/src/contexts/auth-context";
 import Hamburger from "@/public/assets/images/Hamburger Menu.svg";
 
 const Header = () => {
-    const {
-        state: { authenticated, user },
-        dispatch,
-    } = useContext(AuthContext);
+    const { authenticated, user, logout } = useAuth();
     const { email = "" } = user || {};
 
     return (
@@ -60,22 +55,19 @@ const Header = () => {
                                     <ul className="dropdown-menu">
                                         <li>
                                             <Link
+                                                href="/profile"
                                                 className="dropdown-item"
-                                                href="#"
                                             >
-                                                Action
+                                                Profile
                                             </Link>
                                         </li>
                                         <li>
                                             <span
                                                 className="dropdown-item"
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() =>
-                                                    dispatch({
-                                                        type: AuthActionTypes.LOGOUT,
-                                                        payload: null,
-                                                    })
-                                                }
+                                                style={{
+                                                    cursor: "pointer",
+                                                }}
+                                                onClick={logout}
                                             >
                                                 Logout
                                             </span>
@@ -94,7 +86,6 @@ const Header = () => {
                                 data-bs-target="#offcanvasMenu"
                                 aria-controls="offcanvasMenu"
                             />
-
                             <div
                                 tabIndex={-1}
                                 id="offcanvasMenu"

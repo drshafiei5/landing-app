@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
-import { AuthActionTypes, User } from "@/src/types";
+import { User } from "@/src/types";
 import TextField from "@/src/components/TextField";
 import CheckField from "@/src/components/CheckField";
-import { AuthContext } from "@/src/contexts/auth-context";
+import { useAuth } from "@/src/contexts/auth-context";
 import UnderlineLink from "@/src/components/UnderlineLink";
 import PasswordField from "@/src/components/PasswordField";
 
@@ -17,10 +17,10 @@ const SignupForm = () => {
     const router = useRouter();
     const { handleSubmit, control } = useForm<User>();
 
-    const { dispatch } = useContext(AuthContext);
+    const { signup } = useAuth();
 
     const onSubmit = (data: User) => {
-        dispatch({ type: AuthActionTypes.SIGNUP, payload: data });
+        signup(data);
         router.push("/");
     };
 

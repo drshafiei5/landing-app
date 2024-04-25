@@ -1,75 +1,60 @@
-import React, {
-    createContext,
-    useReducer,
-    Dispatch,
-    PropsWithChildren,
-    useEffect,
-} from "react";
-import { User, ActionMap, AuthActionTypes } from "@/src/types";
+"use client";
 
-type UserMaybeNull = User | null;
+import React from "react";
+import { useLocalStorage } from "react-use";
 
-type AuthState = {
-    authenticated: boolean;
-    user: UserMaybeNull;
-    loading: boolean;
-};
+import { User } from "@/src/types";
+import { State, authReducer, initialState } from "@/src/reducers/auth-reducer";
 
-type AuthPayload = {
-    [AuthActionTypes.SIGNIN]: UserMaybeNull;
-    [AuthActionTypes.SIGNUP]: UserMaybeNull;
-    [AuthActionTypes.LOGOUT]: null;
-};
+interface AuthProviderState extends State {
+    logout: () => void;
+    signin: (user: User) => void;
+    signup: (user: User) => void;
+}
+export const authContext = React.createContext<AuthProviderState | undefined>(
+    undefined
+);
 
-type AuthActions = ActionMap<AuthPayload>[keyof ActionMap<AuthPayload>];
+authContext.displayName = "AuthContext";
 
-export const authReducer = (state: AuthState, action: AuthActions) => {
-    switch (action.type) {
-        case AuthActionTypes.SIGNIN:
-        case AuthActionTypes.SIGNUP:
-            return {
-                ...state,
-                authenticated: true,
-                user: action.payload,
-            };
-
-        case AuthActionTypes.LOGOUT:
-            return {
-                ...state,
-                authenticated: false,
-                user: null,
-            };
-
-        default:
-            return state;
+export const useAuth = () => {
+    const context = React.useContext(authContext);
+    if (context === undefined) {
+        throw new Error(`useAuth must be used within a AuthProvider`);
     }
+    return context;
 };
 
-const initialState = JSON.parse(localStorage.getItem("localUser")!) || {
-    user: null,
-    authenticated: false,
-    loading: true,
-};
-
-const AuthContext = createContext<{
-    state: AuthState;
-    dispatch: Dispatch<AuthActions>;
-}>({
-    state: initialState,
-    dispatch: () => null,
-});
-
-const AuthProvider = ({ children }: PropsWithChildren) => {
-    const [state, dispatch] = useReducer(authReducer, initialState);
-    useEffect(() => {
-        localStorage.setItem("localUser", JSON.stringify(state));
-    }, [state]);
-
-    return (
-        <AuthContext.Provider value={{ state, dispatch }}>
-            {children}
-        </AuthContext.Provider>
+export const AuthProvider: React.FC<{
+    children?: React.ReactNode;
+}> = (props) => {
+    const [savedAuth, saveAuth] = useLocalStorage(
+        "auth",
+        JSON.stringify(initialState)
     );
-};
+    const [state, dispatch] = React.useReducer(
+        authReducer,
+        JSON.parse(savedAuth!)
+    );
 
-export { AuthProvider, AuthContext };
+    React.useEffect(() => {
+        saveAuth(JSON.stringify(state));
+    }, [state, saveAuth]);
+
+    
+    const logout = () => dispatch({ type: "LOGOUT" });
+    const signin = (user: User) => dispatch({ type: "SIGNIN", user });
+    const signup = (user: User) => dispatch({ type: "SIGNUP", user });
+
+    const value = React.useMemo(
+        () => ({
+            ...state,
+            signin,
+            logout,
+            signup,
+        }),
+        [state]
+    );
+
+    return <authContext.Provider value={value} {...props} />;
+};

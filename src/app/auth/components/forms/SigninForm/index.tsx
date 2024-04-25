@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 import TextField from "@/src/components/TextField";
-import { User, AuthActionTypes } from "@/src/types";
-import { AuthContext } from "@/src/contexts/auth-context";
+import { User } from "@/src/types";
+import { useAuth } from "@/src/contexts/auth-context";
 import PasswordField from "@/src/components/PasswordField";
 
 const SigninForm = () => {
@@ -15,14 +15,10 @@ const SigninForm = () => {
 
     const { handleSubmit, control } = useForm<Omit<User, "name">>();
 
-    const { dispatch } = useContext(AuthContext);
+    const { signin } = useAuth();
 
     const onSubmit = (data: Omit<User, "name">) => {
-        dispatch({
-            type: AuthActionTypes.SIGNIN,
-            payload: { ...data, name: "username" },
-        });
-
+        signin({ ...data, name: "username" });
         router.push("/");
     };
 

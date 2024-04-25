@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import React from "react";
-import Hero from "./layout/sections/Hero";
-import Features from "./layout/sections/Features";
+
 import Cta from "./layout/sections/Cta";
+import Hero from "./layout/sections/Hero";
 import Reviews from "./layout/sections/Reviews";
+import Features from "./layout/sections/Features";
 
 export const metadata: Metadata = {
     title: "Fiber Next App",

@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useContext } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import { nav } from "@/src/data/nav";
-import { AuthContext } from "@/src/contexts/auth-context";
-import { AuthActionTypes } from "@/src/types";
+import { useAuth } from "@/src/contexts/auth-context";
 
 const MobileMenu = () => {
     const router = useRouter();
-    const {
-        state: { authenticated, user },
-        dispatch,
-    } = useContext(AuthContext);
+    const { authenticated, user, logout } = useAuth();
     const { email = "" } = user || {};
 
     const onLinkCliked = (href: string) => {
@@ -72,9 +68,9 @@ const MobileMenu = () => {
                     >
                         <p
                             className="text-black"
-                            onClick={() => onLinkCliked("/")}
+                            onClick={() => onLinkCliked("/profile")}
                         >
-                            Dashboard ({email})
+                            Profile ({email})
                         </p>
                     </li>
                     <li
@@ -85,12 +81,7 @@ const MobileMenu = () => {
                         <span
                             className="text-black"
                             style={{ cursor: "pointer" }}
-                            onClick={() =>
-                                dispatch({
-                                    type: AuthActionTypes.LOGOUT,
-                                    payload: null,
-                                })
-                            }
+                            onClick={logout}
                         >
                             Logout
                         </span>
@@ -102,3 +93,5 @@ const MobileMenu = () => {
 };
 
 export default MobileMenu;
+
+
